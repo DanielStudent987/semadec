@@ -1,0 +1,224 @@
+body {
+    margin: 0px;
+    align-items: center;
+    background-color: #f0f0f0;
+
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    background-color: #c2c0c0;
+
+    border-bottom: 2px solid #E3E3E3;
+    border-radius: 0px 0px 15px 15px;
+    /*background-color: #A0EA9D;
+
+    border-bottom: 2px solid #74DE76;*/
+    height: 88px;
+    margin-bottom: 20px;
+}
+
+h1{
+    font-family: 'impact';
+    font-size: 2rem;
+    color: #fff;
+}
+
+
+@font-face {
+    font-family: 'sketchy';
+    src: url("../fontes/SKETCHY.ttf") format('truetype');
+    font-style: normal;
+    font-weight: normal;
+    
+}
+
+.menu h1 {
+    font-family: 'sketchy';
+    font-size: 40px;
+    font-weight: normal;
+    text-align: center;
+    color: #fff;
+}
+
+
+.menu img {
+    width: 65px;
+    height: 65px;
+    padding: 6px;
+}
+
+.menu button {
+    background-color: transparent;
+    border: none;
+}
+.menu button img{
+    width: 3rem;
+    height: 3rem;
+    
+}
+
+.main {
+
+    
+    padding: 20px;
+    width: 97%;
+    margin: 1%;
+    margin-top: 40px;
+    background-color: #5dbd5f;
+    border-radius: 30px;
+    
+}
+
+.main div form div button {
+    border-radius: 30px;
+}
+
+.main input {
+    background-color: #a6f39c;
+    border: solid #CEFFC7;
+}
+
+
+
+/*@MEDIA*/
+
+
+@media only screen and (max-width: 839px) {
+    .menu div h1{
+        font-size: 35px;
+    }
+
+    .menu img{
+        width: 65px;    
+        height: 65px;
+        padding: 6px;
+    }
+
+    #out {
+        width: 2.8rem;    
+        height: 2.8rem;
+    }
+    
+}
+
+@media (max-width: 767px) {
+    .menu div h1{
+        font-size: 30px;
+    }
+
+    .menu img{
+        width: 62px;    
+        height: 62px;
+        padding: 6px;
+    }
+
+    .container {
+        max-width: 760px;
+    }
+    
+}
+
+
+
+@media  (max-width: 690px) {
+    
+    .menu div h1{
+        font-size: 28px;
+    }
+
+    .menu img{
+        width: 55px;    
+        height: 55px;
+        padding: 6px;
+    }
+
+    .container {   
+        width: 100%;
+        padding-right: var(--bs-gutter-x,.75rem);
+        padding-left: var(--bs-gutter-x,.75rem);
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    #out {
+        width: 2.5rem;    
+        height: 2.5rem;
+    }
+}
+
+@media (max-width: 570px) {
+
+    .menu div h1{
+        
+        font-size: 28px;
+        
+    }
+
+    .menu img{
+        width: 50px;    
+        height: 50px;
+        padding: 6px;
+    }
+
+    .container {  
+        
+        width: 100%;
+        padding-right: var(--bs-gutter-x,.75rem);
+        padding-left: var(--bs-gutter-x,.75rem);
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .r-c {
+        flex-direction: column;
+    }
+
+    .log {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .sec {
+        width: 100%;
+    }
+
+    
+
+    #out {
+        width: 2.3rem;    
+        height: 2.3rem;
+    }
+    
+    }
+
+    @media only screen and (max-width: 440px) {
+
+        .menu div h1{
+            
+            font-size: 25px;
+            
+        }
+    
+        .menu img{
+            width: 50px;    
+            height: 50px;
+            padding: 6px;
+        }
+    
+        .container {  
+            
+            width: 100%;
+            padding-right: var(--bs-gutter-x,.75rem);
+            padding-left: var(--bs-gutter-x,.75rem);
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        
+    }
+

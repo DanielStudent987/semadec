@@ -1,0 +1,478 @@
+*{
+    margin: 0px;
+}
+
+body, html{
+    
+    background-color: #f0f0f0;
+    margin-bottom: 0px;
+    height: 100vh;
+    padding-bottom: 423px;
+
+}
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    background-color: #c2c0c0;
+
+    border-bottom: 2px solid #E3E3E3;
+    border-radius: 0px 0px 15px 15px;
+    /*background-color: #A0EA9D;
+
+    border-bottom: 2px solid #74DE76;*/
+    height: 88px;
+    margin-bottom: 20px;
+
+}
+
+.banner {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+.banner img{
+    width: 70px;    
+    height: 70px;
+    padding: 6px;
+}
+
+
+
+#loginimg {
+    width: 35px;    
+    height: 35px;
+    padding: 1%;
+}
+
+
+/*N achei uma fonte legal no vs, tô importando uma aq*/
+@font-face {
+    font-family: 'sketchy';
+    src: url("fontes/SKETCHY.ttf") format('truetype');
+    font-style: normal;
+    font-weight: normal;
+    
+}
+.banner h1{
+    font-family: 'sketchy';
+    font-size: 40px;
+    font-weight: normal;
+    text-align: center;
+    color: #fff;
+}
+.noticias{
+    width: 100%;
+    height: 450px;
+    background-color: #EBA818;
+    text-align: center;
+    border-radius: 13px;
+}
+
+.noticias a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.noticias a:hover {
+    color: #000;
+    transition: 1s;
+}
+
+.container aside div img{
+    width: 58px;
+    height: 58px;
+    padding: 12px;
+}
+
+.container aside div h3{
+    
+    font-family: 'impact','Segoe UI', Tahoma, 'Geneva', Verdana, sans-serif;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.row {
+    margin-bottom: 0px;
+}
+
+.not-banner{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    
+}
+
+.not-banner h3 {
+    color: #fff;
+    font-size: 22px;
+    font-family: 'impact', 'Segoe UI', Tahoma, 'Geneva', Verdana, sans-serif;
+    
+
+}
+
+.not-banner div {
+    display: flex;
+}
+
+.not-banner div a {
+    margin-left: 10px;
+}
+
+.log {
+    width: 100%;
+}
+.login{
+    width: 100%;
+    /* O height tava 250, mudei pra 100 pra ajustar o tamanho */
+    height: 90px; 
+    background-color: #5dbd5f;
+
+    border-radius: 13px;
+}
+
+.login button{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;    
+    height: 58px;
+    padding: 1%;
+    background: transparent;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+.sec a {
+    border-radius: 180px;
+}
+
+.login button a{
+    font-size: 22px;
+    font-family: 'impact', 'Segoe UI', Tahoma, 'Geneva', Verdana, sans-serif;
+    text-decoration: none;
+    margin: 6px;
+    color: rgb(0, 0, 0);
+    color: #fff;
+}
+
+.login button a:hover{
+    font-size: x-large;
+}
+
+.semadec{
+    width: 100%;
+    /* O height tava 150, mudei pra 300 pq a prof falou*/ 
+    height: 350px;
+    background-color: #006b9e;
+
+    border-radius: 13px;
+    
+    text-align: center;
+}
+
+
+.semadec h1{
+    color: #fff;
+    font-size: 22px;
+    font-weight: normal;
+    padding: 12px;
+    
+    font-family: 'impact','Segoe UI', Tahoma, 'Geneva', Verdana, sans-serif;
+}
+
+
+table.gn-seletable {
+    font-family: 'Segoe UI';
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+.gn-seletable td, .gn-seletable th {
+    border: 2.5px solid rgb(231, 137, 14);
+    text-align: justify;
+    padding: 18px;
+    
+}
+
+table.gn-seletable2 {
+    font-family: 'Segoe UI';
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+.scroll {
+    scrollbar-width: none;
+    height: 260px;
+    overflow-y: scroll; 
+    
+    
+}
+
+ .scroll2 {
+    scrollbar-width: none;
+    height: 360px;
+    overflow-y: scroll; 
+  }
+
+ tbody a:hover{
+    
+    color: #000;
+    transition: 1s;
+    
+}
+  
+
+
+.gn-seletable2 td, .gn-seletable2 th {
+    border: 2px solid #2e8cb7;
+    text-align: justify;
+    padding: 18px;
+    padding-top: 0px;
+}
+
+.gn-seletable2 p {
+    color: #fff;
+    font-size: 16px;
+}
+
+.site-footer{
+    
+    /*background-color: lightgray;
+    position: ;
+    bottom:0;
+    left:0;
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    */
+    position: absolute;
+    bottom: 0;
+    background-color: blue;
+    color: #FFF;
+    width: 100%;
+    height: 100px;    
+    text-align: center;
+    align-items: center;
+    line-height: 100px;
+
+}
+
+/*parei aqui*/
+
+.r {
+    width: 100%;
+    justify-content: center;
+}
+
+.rodape {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    border-radius: 30px 30px 0 0;
+    width: 100%;
+}
+
+.divfooter {
+    width: 100%;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    
+    justify-content: space-around;
+}
+
+.p-3 {
+    padding: 0.5rem!important;
+    border-radius: 30px 30px 0 0;
+}
+
+.p-3 ul li a {
+    text-decoration: none;
+}
+
+.images {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+}
+
+.site-footer .row {
+    
+    align-items: center;
+    margin-bottom: 0px;
+    background-color: lightgray;
+   
+
+}
+
+.site-footer .col{
+    color: #000;
+    align-items: center;
+    text-align: center;
+   
+   
+}
+
+.site-footer a {
+    text-decoration: none;
+    color: #000;
+    
+}
+
+.site-footer a img {
+    width: 50px;
+    height: 50px;
+    padding: 12px;
+    
+}
+
+/*@media (min-width: 699px) {
+.container {
+    max-width: 650px;
+}
+
+}*/
+
+@media only screen and (max-width: 839px) {
+    .banner h1{
+        font-size: 35px;
+    }
+
+    .banner img{
+        width: 65px;    
+        height: 65px;
+        padding: 6px;
+    }
+
+    
+}
+
+@media (max-width: 747px) {
+    .banner h1{
+        font-size: 30px;
+    }
+
+    .banner img{
+        width: 62px;    
+        height: 62px;
+        padding: 6px;
+    }
+
+    .container {
+        max-width: 760px;
+    }
+    
+}
+
+
+
+@media  (max-width: 690px) {
+    
+    .banner h1{
+        font-size: 28px;
+    }
+
+    .banner img{
+        width: 55px;    
+        height: 55px;
+        padding: 6px;
+    }
+
+    .container {   
+        width: 100%;
+        padding-right: var(--bs-gutter-x,.75rem);
+        padding-left: var(--bs-gutter-x,.75rem);
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+@media only screen and (max-width: 570px) {
+
+    .banner h1{
+        
+        font-size: 25px;
+        
+    }
+
+    .banner img{
+        width: 50px;    
+        height: 50px;
+        padding: 6px;
+    }
+
+    .container {  
+        
+        width: 100%;
+        padding-right: var(--bs-gutter-x,.75rem);
+        padding-left: var(--bs-gutter-x,.75rem);
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .log {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .sec {
+        width: 100%;
+    }
+
+    
+
+    
+    }
+
+    @media only screen and (max-width: 440px) {
+
+        .banner h1{
+            
+            font-size: 20px;
+            
+        }
+    
+        .banner img{
+            width: 50px;    
+            height: 50px;
+            padding: 6px;
+        }
+    
+        .container {  
+            
+            width: 100%;
+            padding-right: var(--bs-gutter-x,.75rem);
+            padding-left: var(--bs-gutter-x,.75rem);
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        
+        }

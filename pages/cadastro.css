@@ -1,0 +1,80 @@
+body {
+    margin: 0px;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 88px;
+    padding: 0px;
+    border-radius: 0px 0px 15px 15px;
+    border-bottom: 2px solid #E3E3E3;
+
+    background-color: #c2c0c0;
+}
+
+h1{
+    font-family: 'impact';
+    font-size: 2rem;
+    color: #fff;
+}
+
+@font-face {
+    font-family: 'sketchy';
+    src: url("../fontes/SKETCHY.ttf") format('truetype');
+    font-style: normal;
+    font-weight: normal;
+    
+}
+
+.menu div h1 {
+    font-family: 'sketchy';
+    font-size: 40px;
+    font-weight: normal;
+    text-align: center;
+    color: #fff;
+}
+
+
+
+.menu img {
+    width: 60px;
+    height: 60px;
+    padding: 6px;
+}
+
+.menu a button {
+    background-color: transparent;
+    border: none;
+}
+.menu a button img{
+    width: 2rem;
+    height: 2rem;
+}
+
+.main {
+    
+    padding: 20px;
+    width: 97%;
+    margin: 1%;
+    margin-top: 40px;
+    background-color: #5dbd5f;
+    border-radius: 30px;
+    
+}
+
+.main div form div button {
+    border-radius: 30px;
+}
+
+.main input {
+    background-color: #a6f39c;
+    border: solid #CEFFC7;
+}
+
+
+

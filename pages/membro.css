@@ -1,0 +1,277 @@
+body {
+    margin: 0px;
+    align-items: center;
+    background-color: #f0f0f0;
+    height: 100vh;
+    padding-bottom: 423px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 88px;
+    padding: 0px;
+    border-radius: 0px 0px 15px 15px;
+    border-bottom: 2px solid #E3E3E3;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #c2c0c0;
+}
+
+h1{
+    font-family: 'impact';
+    font-size: 2rem;
+    color: #fff;
+}
+
+@font-face {
+    font-family: 'sketchy';
+    src: url("../fontes/SKETCHY.ttf") format('truetype');
+    font-style: normal;
+    font-weight: normal;
+    
+}
+
+.menu div h1 {
+    font-family: 'sketchy';
+    font-size: 40px;
+    font-weight: normal;
+    text-align: center;
+    color: #fff;
+}
+
+.menu img {
+    width: 70px;    
+    height: 70px;
+    padding: 6px;
+}
+
+.menu a button {
+    background-color: transparent;
+    border: none;
+}
+.menu a button img{
+    width: 3rem;
+    height: 3rem;
+}
+
+.main {
+
+    
+    padding: 20px;
+    width: 97%;
+    margin: 1%;
+    margin-top: 40px;
+    background-color: #5dbd5f;
+    border-radius: 30px;
+    
+}
+
+::-webkit-scrollbar {
+    display: none;
+  }
+
+.scroll {
+    scrollbar-width: none;
+    height: 200px;
+    overflow-y: auto;
+    overflow-x: auto;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.main table tbody tr th img {
+    
+    color: #c73d3f;
+    
+}
+
+.main div form div button {
+    border-radius: 30px;
+}
+
+
+.main input {
+    background-color: #a6f39c;
+    border: solid #CEFFC7;
+}
+
+.main div form div label {
+    font-weight: bold;
+    color: gray;
+}
+
+.link a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.link a:hover {
+    text-decoration: none;
+    color: #000;
+}
+
+.table {
+    width: 100%;
+    
+}
+
+thead, tbody {
+    width: 100%;
+}
+
+
+ .table tbody td, th{
+    background-color: #9be691;
+    text-align: justify;
+    
+    padding: 18px;
+    padding-top: 0px;
+}
+
+.r {
+    width: 100%;
+    justify-content: center;
+}
+
+.rodape {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    border-radius: 30px 30px 0 0;
+    width: 100%;
+}
+
+.p-3 {
+    padding: 0.5rem!important;
+    border-radius: 30px 30px 0 0;
+}
+
+.p-3 ul li a {
+    text-decoration: none;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    
+    justify-content: space-around;
+}
+
+.images {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+}
+
+/*@MEDIA*/
+
+@media only screen and (max-width: 839px) {
+    .menu div h1{
+        font-size: 35px;
+    }
+
+    .menu img{
+        width: 65px;    
+        height: 65px;
+        padding: 6px;
+    }
+
+    #out {
+        width: 2.8rem;    
+        height: 2.8rem;
+    }
+    
+}
+
+@media (max-width: 767px) {
+    .menu div h1{
+        font-size: 30px;
+    }
+
+    .menu img{
+        width: 62px;    
+        height: 62px;
+        padding: 6px;
+    }
+
+    #out {
+        width: 2.5rem;    
+        height: 2.5rem;
+    }
+
+
+    .container {
+        max-width: 760px;
+    }
+    
+
+
+}
+
+
+
+@media  (max-width: 690px) {
+    
+    .menu div h1{
+        font-size: 28px;
+    }
+
+    .menu img{
+        width: 55px;    
+        height: 55px;
+        padding: 6px;
+    }
+
+}
+
+@media (max-width: 570px) {
+
+    .menu div h1{
+        
+        font-size: 25px;
+        
+    }
+
+    .menu img{
+        width: 50px;    
+        height: 50px;
+        padding: 6px;
+    }
+
+    .log {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .sec {
+        width: 100%;
+    }
+
+    
+
+    
+    }
+
+    @media only screen and (max-width: 440px) {
+
+        .menu div h1{
+            
+            font-size: 20px;
+            
+        }
+    
+        .menu img{
+            width: 50px;    
+            height: 50px;
+            padding: 6px;
+        }
+    
+
+        
+    }
