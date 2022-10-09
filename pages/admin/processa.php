@@ -24,6 +24,32 @@
 
         header("location:controle.php?p1=y&".$pr);
 
+    //CADASTRAR PROVA
+    } else if (isset($_POST['salvar_prova'])) {
+        $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
+        if ($nome != '') {
+            $pr = $pr . 'nome_prova='.$nome;
+        }
+
+        $local = isset($_POST['local']) ? $_POST['local'] : '';
+        if ($local != '') {
+            $pr = $pr . '&local_prova='.$local;
+        }
+
+        $part = isset($_POST['part']) ? $_POST['part'] : '';
+        if ($part != '') {
+            $pr = $pr . '&part_prova='.$part;
+        }
+
+        $grupo = isset($_POST['grupo']) ? $_POST['grupo'] : '';
+        if ($grupo != '') {
+            $pr = $pr . '&grupo_prova='.$grupo;
+        }
+
+        header("location:controle.php?p1=y&".$pr."&cadastrarprova=1");
     }
+
+    
+
 
 ?>

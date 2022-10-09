@@ -26,6 +26,7 @@
             <img src="../../assets/exit.svg" id="out" alt="sair">
         </button></a>
     </header>
+    
     <form action="processa.php" method="post">
         <div class="col-6">
             <label for="c1">Informe o nome da prova</label>
@@ -37,7 +38,7 @@
         </div>
         <div class="col-6">
             <label for="c3">Informe o número de participantes</label>
-            <input type="number" name="part" maxlength="11" id="c3">
+            <input type="number" min="1" max="50" name="part" maxlength="11" id="c3">
         </div>
         <?php
             include('../funcoes.php');
@@ -45,15 +46,17 @@
         ?>
         
         
-        <input type="submit" name="deletar_prova" value='Deletar'>
+        <input type="submit" name="salvar_prova" value="Cadastrar">
         <input type="reset" name="reset" value="Limpar">
-
-        
     </form>
+
+    <form action="processa.php" method="POST">
+        <?php 
+            tableInfoProvas();
+        ?>
+    </form>
+        
     
-    <?php 
-        tableProva();
-    ?>
 
 </body>
 </html>

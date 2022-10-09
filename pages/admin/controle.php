@@ -43,6 +43,43 @@
                     }
                 }
                 
+            //CADASTRAR PROVAS
+            } else if (isset($_GET['cadastrarprova'])) {
+                if ($_GET['cadastrarprova']==1) {
+                    $nome = $_GET['nome_prova'];
+                    $local = $_GET['local_prova'];
+                    $part = $_GET['part_prova'];
+                    $idgrupo = $_GET['grupo_prova'];
+
+                    $sql_query = $mysqli->query("SELECT nome from provas");
+                    $i = 0;
+
+                    //VERIFICANDO SE HA OUTRA PROVA COM O MESMO NOME
+                    while ($dados=$sql_query->fetch_assoc()) {
+                        if ($dados['nome'] == $nome) {
+                            $i+=1;
+                            die ("Nome informado já existe, selecione outro nome <a href='gerenciarprovas.php'>Tentar novamente</a>");
+                        }
+                    }
+
+                    //INSERINDO OS DADOS NO BANCO DE DADOS
+                    if ($i==0) {
+                        if ($mysqli->query("INSERT INTO provas (nome, local, participantes, pontuacao_idpontuacao)  VALUES ('$nome', '$local', '$part', '$idgrupo')")) {
+                            $sql_query = $mysqli->query("SELECT e.idEquipe, p.idProva from equipe e, provas p where p.nome = '$nome' order by e.idEquipe");
+
+                            //ESTRUTURA QUE FAZ UMA INSERSAO EM CONQUISTA POR EQUIPE CADASTRADA
+                            while ($dados=$sql_query->fetch_assoc()) {
+                                if ($mysqli->query("INSERT into conquistas (Provas_idProva, Equipe_idEquipe, classificacao, nota) values ('$dados[idProva]', '$dados[idEquipe]', '', 0)")) {
+                                    header("location:gerenciarprovas.php");
+                                }
+                           }
+                            
+                        }
+                    }
+
+                } else {
+                    die("acesso negado");
+                }
             }
 
         
