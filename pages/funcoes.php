@@ -231,7 +231,7 @@
                                 <td>$dados[local]</td>
                                 <td>$dados[participantes]</td>
                                 <td>$dados[pontuacao_idpontuacao]</td>
-                                <td><input type='radio' name='deletar_prova' value='deletar_prova'></td>";
+                                <td><input type='radio' name='deletar_prova' value='$dados[idProva]'></td>";
                         } 
                                     
                                     //coleta o total de pontos de cada equipe

@@ -6,7 +6,7 @@
 
         if ($_GET['p1'] == 'y') {
 
-
+            //DELETAR EQUIPE
             if (isset($_GET['deletarequipe'])) {
                 $sql_query = $mysqli->query("SELECT idUsuario  from equipe e, usuario u where e.idEquipe=$_GET[deletarequipe] and 
                 u.idUsuario=e.Usuario_idUsuario");
@@ -23,6 +23,8 @@
                         }
                     } 
                 }
+
+            //DELETAR MEMBRO
             } else if (isset($_GET['deletarmembro'])) {
                 $id_deletar = intval($_GET['deletarmembro']);
                 $sql_lista_membro_query = $mysqli->query("SELECT * from membros where idMembro = '$id_deletar'") or die($mysqli->error);
@@ -79,6 +81,21 @@
 
                 } else {
                     die("acesso negado");
+                }
+
+            //DELETAR PROVA
+            } else if (isset($_GET['deletarprova'])) {
+                if ($_GET['deletar']==2) {
+                    $idP = $_GET['deletarprova'];
+                    
+                    if ($mysqli->query("DELETE from conquistas where Provas_idProva='$idP'") or die("Erro ao deletar prova de conquistas".$mysqli->error)) {
+                        if  ($mysqli->query("DELETE from provas where idProva='$idP'") or die("Erro ao deletar prova de provas".$mysqli->error)) {
+                            header("location:gerenciarprovas.php");
+                        }
+                    }
+
+                } else {
+                    die("Acesso negado");
                 }
             }
 

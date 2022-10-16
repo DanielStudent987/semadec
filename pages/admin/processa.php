@@ -47,6 +47,14 @@
         }
 
         header("location:controle.php?p1=y&".$pr."&cadastrarprova=1");
+    //DELETAR PROVA
+    } else if (isset($_POST['deletar_prova'])) {
+        $id = isset($_POST['deletar_prova']) ? $_POST['deletar_prova'] : " ";
+        if ($id != " ") {
+            $pr = $pr. "&deletarprova=" .$id;
+        }
+
+        header("location: controle.php?p1=y".$pr."&deletar=2");
     }
 
     
