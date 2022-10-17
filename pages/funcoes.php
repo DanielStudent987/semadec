@@ -242,5 +242,44 @@
                                     
                 echo "</tbody>
         </table>";
+    } 
+    
+    //PAREI AQUI
+    function imprimirGrupos() {
+        
+        $sql_query = $mysqli->query("SELECT * from pontuacao");
+        echo "<table class='table table-bordered table-hover' style='background-color: #C2C2C2; border-color: #f0f0f0; border-radius: 15px;'>
+                <thead>";
+
+                        echo "<th>Nome</th>
+                        <th>Local</th>
+                        <th>Participantes</th>
+                        <th>Grupo(Id_Pontuação)</th>
+                        <th><input type='submit' name='deletar_prova' value='Deletar'></th>
+                </thead>
+                <tbody>";
+                        // talvez Mudar esse caminho
+                        #$sql_query = $mysqli->query("SELECT * from arquivos order by idArquivo desc") or die($mysqli->error);
+                        while ($dados = $sql_query->fetch_assoc()) { 
+                    
+                            echo "<tr>
+                                <td>$dados[nome]</td>
+                                <td>$dados[local]</td>
+                                <td>$dados[participantes]</td>
+                                <td>$dados[pontuacao_idpontuacao]</td>
+                                <td><input type='radio' name='deletar_prova' value='$dados[idProva]'></td>";
+                        } 
+                                    
+                                    //coleta o total de pontos de cada equipe
+                                    /*$sql_query3 = $mysqli->query("SELECT conquistas.nota as nota, conquistas.Equipe_idEquipe as id   from equipe, provas, conquistas where  
+                                        provas.idProva=conquistas.Provas_idProva and conquistas.Equipe_idEquipe='$dados[idEquipe]' and equipe.idEquipe='$dados[idEquipe]' order by nome") or die($mysqli->error);
+                                     */ 
+                        "</tr>";                     
+                                    
+                echo "</tbody>
+        </table>";
+        
+
+
     }
 ?>

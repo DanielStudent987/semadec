@@ -49,6 +49,9 @@
                             <tr>
                                 <td><a href="gerenciarprovas.php">Gerenciar provas</a></td>
                             </tr>
+                            <tr>
+                                <td><a href="gerenciarpontuacao.php">Gerenciar Pontuações</a></td>
+                            </tr>
                         </tbody>
                     </table>
                     </div>
