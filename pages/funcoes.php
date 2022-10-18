@@ -244,40 +244,47 @@
         </table>";
     } 
     
-    //PAREI AQUI
+    //IMPRIME OS GRUPOS DE CLASSIFICACAO
     function imprimirGrupos() {
         
         $sql_query = $mysqli->query("SELECT * from pontuacao");
+        $quant = $sql_query->num_rows;
         echo "<table class='table table-bordered table-hover' style='background-color: #C2C2C2; border-color: #f0f0f0; border-radius: 15px;'>
                 <thead>";
 
-                        echo "<th>Nome</th>
-                        <th>Local</th>
-                        <th>Participantes</th>
-                        <th>Grupo(Id_Pontuação)</th>
-                        <th><input type='submit' name='deletar_prova' value='Deletar'></th>
-                </thead>
+                        echo "<th>Grupo</th>
+                        <th>Primeiro</th>
+                        <th>Segundo</th>
+                        <th>Terceiro</th>
+                        <th>Quarto</th>
+                        <th>Quinto</th>
+                        <th>Sexto</th>";
+                        if ($quant==0) {
+                            echo "<th><input type='submit' name='deletar_grupo' disabled value='Deletar Grupo'></th>";
+                        } else {
+                            echo "<th><input type='submit' name='deletar_grupo' value='Deletar Grupo'></th>";   
+                        }
+                echo "</thead>
                 <tbody>";
-                        // talvez Mudar esse caminho
-                        #$sql_query = $mysqli->query("SELECT * from arquivos order by idArquivo desc") or die($mysqli->error);
+                         
+                        //IMPRIME OS VALORES/PONTUACOES NA TABELA
                         while ($dados = $sql_query->fetch_assoc()) { 
                     
                             echo "<tr>
-                                <td>$dados[nome]</td>
-                                <td>$dados[local]</td>
-                                <td>$dados[participantes]</td>
-                                <td>$dados[pontuacao_idpontuacao]</td>
-                                <td><input type='radio' name='deletar_prova' value='$dados[idProva]'></td>";
+                                <td>$dados[idpontuacao]</td>
+                                <td>$dados[primeiro]</td>
+                                <td>$dados[segundo]</td>
+                                <td>$dados[terceiro]</td>
+                                <td>$dados[quarto]</td>
+                                <td>$dados[quinto]</td>
+                                <td>$dados[sexto]</td>
+                                <td><input type='radio' name='deletar_grupo' value='$dados[idpontuacao]'></td>";
                         } 
                                     
-                                    //coleta o total de pontos de cada equipe
-                                    /*$sql_query3 = $mysqli->query("SELECT conquistas.nota as nota, conquistas.Equipe_idEquipe as id   from equipe, provas, conquistas where  
-                                        provas.idProva=conquistas.Provas_idProva and conquistas.Equipe_idEquipe='$dados[idEquipe]' and equipe.idEquipe='$dados[idEquipe]' order by nome") or die($mysqli->error);
-                                     */ 
-                        "</tr>";                     
-                                    
-                echo "</tbody>
-        </table>";
+            
+                echo "</tr>
+                </tbody>
+                </table>";
         
 
 
