@@ -115,7 +115,7 @@
                 die("Número máximo de membros atingidos");
                 
             }
-
+           
 
             if (!empty($_FILES['comp']) && isset($_POST['matricula'])) {
                 $comp = $_FILES['comp'];

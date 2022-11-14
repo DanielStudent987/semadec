@@ -85,20 +85,75 @@
                 $dados = $sql_lista_membro_query->fetch_assoc();
 
                 if ($dados['caminho'] == '#') {
-                    if ($mysqli->query("DELETE from membros where idMembro = '$id_deletar'") or die($mysqli->error)) {
+                    /*if ($mysqli->query("DELETE from membros where idMembro = '$id_deletar'") or die($mysqli->error)) {
                         $mysqli->query("UPDATE equipe SET numero_part = numero_part-1 where idEquipe = '$dados[Equipe_idEquipe]'");
                         header("location: ../listamembros.php");
+                    }*/
+                    if ($stmt = $mysqli->prepare("DELETE from membros where idMembro=?")) {
+                        mysqli_stmt_bind_param($stmt,'i',$id_deletar);
+                        //efetiva e executa a SQL no banco, i.e., insere
+                        $status = mysqli_stmt_execute($stmt);
+                        ///verifica se deu algo de errado:
+                        if ($status === false) {
+                            trigger_error($stmt->error, E_USER_ERROR);
+                        }
+                        
+                        $sql_query = $mysqli->query("SELECT * from equipe where idEquipe = '$dados[Equipe_idEquipe]'") or die($mysqli->error);
+                        $dados1 = $sql_query->fetch_assoc();
+                        if ($stmt = $mysqli->prepare("UPDATE equipe set numero_part=? where idEquipe=?")) {
+                            $num = $dados1['numero_part']-1;
+                            mysqli_stmt_bind_param($stmt,'ii', $num,$dados1['idEquipe']);
+                            //efetiva e executa a SQL no banco, i.e., insere
+                            $status = mysqli_stmt_execute($stmt);
+                            ///verifica se deu algo de errado:
+                            if ($status === false) {
+                                trigger_error($stmt->error, E_USER_ERROR);
+                            }
+                            mysqli_stmt_close($stmt);
+                            
+                        }  
+                        
+                        $mysqli->close();
+                        header("location: ../listamembros.php");
+
                     }
                 } else {
                     if (unlink("../".$dados['caminho'])) {
-
-                        if ($mysqli->query("DELETE from membros where idMembro = '$id_deletar'") or die($mysqli->error)) {
+                        /*if ($mysqli->query("DELETE from membros where idMembro = '$id_deletar'") or die($mysqli->error)) {
                             $mysqli->query("UPDATE equipe SET numero_part = numero_part-1 where idEquipe = '$dados[Equipe_idEquipe]'");
                             header("location: ../listamembros.php");
+                        }*/
+
+                        if ($stmt = $mysqli->prepare("DELETE from membros where idMembro=?")) {
+                            mysqli_stmt_bind_param($stmt,'i',$id_deletar);
+                            //efetiva e executa a SQL no banco, i.e., insere
+                            $status = mysqli_stmt_execute($stmt);
+                            ///verifica se deu algo de errado:
+                            if ($status === false) {
+                                trigger_error($stmt->error, E_USER_ERROR);
+                            }
+
+                            $sql_query = $mysqli->query("SELECT * from equipe where idEquipe = '$dados[Equipe_idEquipe]'") or die($mysqli->error);
+                            $dados1 = $sql_query->fetch_assoc();
+                            if ($stmt = $mysqli->prepare("UPDATE equipe set numero_part=? where idEquipe=?")) {
+                                $num = $dados1['numero_part']-1;
+                                mysqli_stmt_bind_param($stmt,'ii',$num,$dados1['idEquipe']);
+                                //efetiva e executa a SQL no banco, i.e., insere
+                                $status = mysqli_stmt_execute($stmt);
+                                ///verifica se deu algo de errado:
+                                if ($status === false) {
+                                    trigger_error($stmt->error, E_USER_ERROR);
+                                }
+                                mysqli_stmt_close($stmt);
+                                
+                            }  
                         }
+
+                        $mysqli->close();
+                        header("location: ../listamembros.php");
                     }
                 }
-                $mysqli->close();
+                
             //CADASTRAR PROVAS
             } else if (isset($_GET['cadastrarprova'])) {
                 include('../conexao.php');
