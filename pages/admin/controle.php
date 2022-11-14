@@ -16,7 +16,7 @@
                 $idU = $sql['idUsuario'];
                 $idE = $_GET['deletarequipe'];
                 
-                if ($mysqli->query("DELETE from conquistas where Equipe_idEquipe = '$idE'") or die("erro ao acessar o banco de dados on line 11")) {
+                /*if ($mysqli->query("DELETE from conquistas where Equipe_idEquipe = '$idE'") or die("erro ao acessar o banco de dados on line 11")) {
                     if ($mysqli->query("DELETE from membros where Equipe_idEquipe = '$idE'") or die("erro ao acessar o banco de dados on line 11")) { 
                         if ($mysqli->query("DELETE from equipe where Usuario_idUsuario = '$idU'") or die("erro ao acessar o banco de dados on line 11")) {
                             if ($mysqli->query("DELETE from usuario where idUsuario = '$idU'") or die("erro ao acessar o banco de dados on line 11")) {
@@ -24,7 +24,56 @@
                             } 
                         }
                     } 
+                }*/
+
+                if ($stmt = $mysqli->prepare("DELETE from conquistas where Equipe_idEquipe=?")) {
+                    //vincular valores as interrogacoes (?)
+                    mysqli_stmt_bind_param($stmt,'i',$idE);
+                    //efetiva e executa a SQL no banco, i.e., insere
+                    $status = mysqli_stmt_execute($stmt);
+                    ///verifica se deu algo de errado:
+                    if ($status === false) {
+                        trigger_error($stmt->error, E_USER_ERROR);
+                      }
+
+                    if ($stmt = $mysqli->prepare("DELETE from membros where Equipe_idEquipe=?")) {
+                        mysqli_stmt_bind_param($stmt,'i',$idE);
+                        //efetiva e executa a SQL no banco, i.e., insere
+                        $status = mysqli_stmt_execute($stmt);
+                        ///verifica se deu algo de errado:
+                        if ($status === false) {
+                            trigger_error($stmt->error, E_USER_ERROR);
+                        }
+
+                        if ($stmt = $mysqli->prepare("DELETE from equipe where Usuario_idUsuario=?")) {
+                            mysqli_stmt_bind_param($stmt,'i',$idU);
+                            //efetiva e executa a SQL no banco, i.e., insere
+                            $status = mysqli_stmt_execute($stmt);
+                            ///verifica se deu algo de errado:
+                            if ($status === false) {
+                                trigger_error($stmt->error, E_USER_ERROR);
+                            }
+                            
+                            if ($stmt = $mysqli->prepare("DELETE from usuario where idUsuario=?")) {
+                                mysqli_stmt_bind_param($stmt,'i',$idU);
+                                //efetiva e executa a SQL no banco, i.e., insere
+                                $status = mysqli_stmt_execute($stmt);
+                                ///verifica se deu algo de errado:
+                                if ($status === false) {
+                                    trigger_error($stmt->error, E_USER_ERROR);
+                                }
+                                mysqli_stmt_close($stmt);
+                                
+                            }
+                            
+                        }
+                    }
+                    
+                    //fecha o statement
+                    $mysqli->close();
+                    header("location: deletarequipe.php");
                 }
+
                 $mysqli->close();
 
             //DELETAR MEMBRO
@@ -98,6 +147,7 @@
                                     if ($status === false) {
                                         trigger_error($stmt->error, E_USER_ERROR);
                                       }
+                                      mysqli_stmt_close($stmt);
                                 }
 
                                 /*if ($mysqli->query("INSERT into conquistas (Provas_idProva, Equipe_idEquipe, classificacao, nota) values ('$dados[idProva]', '$dados[idEquipe]', '', 0)")) {
@@ -106,7 +156,7 @@
                             }
                             
                             //fecha o statement
-                            mysqli_stmt_close($stmt); 
+                            $mysqli->close(); 
                             header("location:gerenciarprovas.php");
                         }
 
