@@ -239,14 +239,40 @@
 
                     $idP = $_GET['deletarprova'];
                     
-                    if ($mysqli->query("DELETE from conquistas where Provas_idProva='$idP'") or die("Erro ao deletar prova de conquistas".$mysqli->error)) {
+                    /*if ($mysqli->query("DELETE from conquistas where Provas_idProva='$idP'") or die("Erro ao deletar prova de conquistas".$mysqli->error)) {
                         if  ($mysqli->query("DELETE from provas where idProva='$idP'") or die("Erro ao deletar prova de provas".$mysqli->error)) {
                             header("location:gerenciarprovas.php");
 
                         }
 
+                    }*/
+
+                    if ($stmt = $mysqli->prepare("DELETE from conquistas where Provas_idProva=?")) {
+                        mysqli_stmt_bind_param($stmt,'i',$idP);
+                        //efetiva e executa a SQL no banco, i.e., insere
+                        $status = mysqli_stmt_execute($stmt);
+                        ///verifica se deu algo de errado:
+                        if ($status === false) {
+                            trigger_error($stmt->error, E_USER_ERROR);
+                        }
+                        
+            
+                        if ($stmt = $mysqli->prepare("DELETE from provas where idProva=?")) {
+                            
+                            mysqli_stmt_bind_param($stmt,'i', $idP);
+                            //efetiva e executa a SQL no banco, i.e., insere
+                            $status = mysqli_stmt_execute($stmt);
+                            ///verifica se deu algo de errado:
+                            if ($status === false) {
+                                trigger_error($stmt->error, E_USER_ERROR);
+                            }
+                            mysqli_stmt_close($stmt);
+                            
+                        }  
                     }
+
                     $mysqli->close();
+                    header("location:gerenciarprovas.php");
 
                 } else {
                     die("Acesso negado");
