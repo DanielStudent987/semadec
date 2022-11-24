@@ -246,7 +246,7 @@
     
     //IMPRIME OS GRUPOS DE CLASSIFICACAO
     function imprimirGrupos() {
-        
+        include("conexao.php");
         $sql_query = $mysqli->query("SELECT * from pontuacao");
         $quant = $sql_query->num_rows;
         echo "<table class='table table-bordered table-hover' style='background-color: #C2C2C2; border-color: #f0f0f0; border-radius: 15px;'>
@@ -277,15 +277,21 @@
                                 <td>$dados[terceiro]</td>
                                 <td>$dados[quarto]</td>
                                 <td>$dados[quinto]</td>
-                                <td>$dados[sexto]</td>
-                                <td><input type='radio' name='deletar_grupo' value='$dados[idpontuacao]'></td>";
-                        } 
+                                <td>$dados[sexto]</td>";
+                                $i = 0;
+                                if ($i==0) {
+                                    $i+=1;
+                                    echo "<td><input type='radio' checked name='deletar_grupo' value='$dados[idpontuacao]'></td>";
+                                } else {
+                                    echo "<td><input type='radio'  name='deletar_grupo' value='$dados[idpontuacao]'></td>";
+                                }
+                            } 
                                     
             
                 echo "</tr>
                 </tbody>
                 </table>";
-        
+        $mysqli->close();
 
 
     }

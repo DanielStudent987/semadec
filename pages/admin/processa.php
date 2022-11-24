@@ -55,7 +55,15 @@
         }
 
         header("location: controle.php?p1=y".$pr."&deletar=2");
-    }
+    
+    } else if (isset($_POST["deletar_grupo"])) {
+        $id = isset($_POST["deletar_grupo"]) ? $_POST["deletar_grupo"] : "";
+        if ($id!="") {
+            $pr = $pr."&deletargrupo=".$id;
+        }
+        echo $id;
+        //header("location: controle.php?p1=y".$pr."&grupo=1");
+    } 
 
     
 

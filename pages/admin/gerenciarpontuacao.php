@@ -53,7 +53,7 @@
     <form action="processa.php" method="POST">
         <?php 
             imprimirGrupos();
-            $mysql->close();
+            //$mysql->close();
         ?>
     </form>
         
