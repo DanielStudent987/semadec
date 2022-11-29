@@ -61,9 +61,41 @@
         if ($id!="") {
             $pr = $pr."&deletargrupo=".$id;
         }
-        echo $id;
-        //header("location: controle.php?p1=y".$pr."&grupo=1");
-    } 
+        
+        header("location: controle.php?p1=y".$pr."&grupo=1");
+    } else if (isset($_POST["salvar_grupo"])) {
+        $primeiro = isset($_POST["primeiro"]) ? $_POST["primeiro"] : "";
+        if ($primeiro!="") {
+            $pr = $pr."primeiro=".$primeiro;
+        } 
+
+        $segundo = isset($_POST["segundo"]) ? $_POST["segundo"] : "";
+        if ($segundo!="") {
+            $pr = $pr."&segundo=".$segundo;
+        } 
+
+        $terceiro = isset($_POST["terceiro"]) ? $_POST["terceiro"] : "";
+        if ($terceiro!="") {
+            $pr = $pr."&terceiro=".$terceiro;
+        } 
+
+        $quarto = isset($_POST["quarto"]) ? $_POST["quarto"] : "";
+        if ($quarto!="") {
+            $pr = $pr."&quarto=".$quarto;
+        } 
+
+        $quinto = isset($_POST["quinto"]) ? $_POST["quinto"] : "";
+        if ($quinto!="") {
+            $pr = $pr."&quinto=".$quinto;
+        } 
+
+        $sexto = isset($_POST["sexto"]) ? $_POST["sexto"] : "";
+        if ($sexto!="") {
+            $pr = $pr."&sexto=".$sexto;
+        } 
+
+        header("location:controle.php?p1=y&".$pr."&cadastrargrupo=1");
+    }
 
     
 

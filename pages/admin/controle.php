@@ -277,9 +277,69 @@
                 } else {
                     die("Acesso negado");
                 }
-            }
+            } else if (isset($_GET["deletargrupo"])) {
+                if ($_GET["grupo"]==1) {
+                    include("../conexao.php");
 
-        
+                    $idG = $_GET["deletargrupo"];
+
+                    if ($stmt = $mysqli->prepare("DELETE from provas where pontuacao_idpontuacao=?")) {
+                        mysqli_stmt_bind_param($stmt,'i',$idG);
+                        //efetiva e executa a SQL no banco, i.e., insere
+                        $status = mysqli_stmt_execute($stmt);
+                        ///verifica se deu algo de errado:
+                        if ($status === false) {
+                            trigger_error($stmt->error, E_USER_ERROR);
+                        }
+
+                        if ($stmt = $mysqli->prepare("DELETE from pontuacao where idpontuacao=?")) {
+                            mysqli_stmt_bind_param($stmt,'i',$idG);
+                            //efetiva e executa a SQL no banco, i.e., insere
+                            $status = mysqli_stmt_execute($stmt);
+                            ///verifica se deu algo de errado:
+                            if ($status === false) {
+                                trigger_error($stmt->error, E_USER_ERROR);
+                            }
+                            mysqli_stmt_close($stmt);
+                        }
+                        
+                    }
+
+                    $mysqli->close();
+                    header("location:gerenciarpontuacao.php");
+                } else {
+                    die("acesso negado <a href='gerenciarpontuacao.php'>Retornar para pagina de gerenciamento</a>");
+                }
+                //salvar grupo
+            } else if (isset($_GET["cadastrargrupo"])) {
+                if ($_GET["cadastrargrupo"]==1) {
+                    $primeiro = $_GET["primeiro"];
+                    $segundo = $_GET["segundo"];
+                    $terceiro = $_GET["terceiro"];
+                    $quarto = $_GET["quarto"];
+                    $quinto = $_GET["quinto"];
+                    $sexto = $_GET["sexto"];
+
+                    include("../conexao.php");
+
+                    if ($stmt = $mysqli->prepare("INSERT INTO pontuacao (primeiro, segundo, terceiro, quarto, quinto, sexto)  VALUES (?, ?, ?, ?, ?, ?)")) {
+                        //vincular valores as interrogacoes (?)
+                        mysqli_stmt_bind_param($stmt,'iiiiii',$primeiro, $segundo, $terceiro, $quarto, $quinto, $sexto);
+                        //efetiva e executa a SQL no banco, i.e., insere
+                        $status = mysqli_stmt_execute($stmt);
+                        if ($status === false) {
+                            trigger_error($stmt->error, E_USER_ERROR);
+                        }
+
+                        mysqli_stmt_close($stmt);
+                    }
+
+                    $mysqli->close();
+                    header("location:gerenciarpontuacao.php");
+
+                }
+
+            }
 
 
         } else {

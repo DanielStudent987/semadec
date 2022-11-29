@@ -14,7 +14,20 @@
 
     <title>Gerenciar Grupos</title>
 
-
+    <script type="text/javascript" language="javascript">
+        function valida_form (){
+            if((document.getElementById("c1").value == "") || (document.getElementById("c2").value == "") || 
+            (document.getElementById("c3").value == "") || (document.getElementById("c4").value == "") || 
+            (document.getElementById("c5").value == "") || (document.getElementById("c6").value == "") ||
+            (document.getElementById("c1").value == null) || (document.getElementById("c2").value == null) || 
+            (document.getElementById("c3").value == null) || (document.getElementById("c4").value == null) || 
+            (document.getElementById("c5").value == null) || (document.getElementById("c6").value == null)){
+                alert('Por favor, preencha todos os campos');
+                
+                
+            }
+        }
+    </script>
 </head>
 <body>
     <header class="menu"> 
@@ -29,24 +42,36 @@
     
     <form action="processa.php" method="post">
         <div class="col-6">
-            <label for="c1">Informe o nome da prova</label>
-            <input type="text" name="nome" maxlength="150" id="c1" placeholder="max: 150 caracteres">
+            <label for="c1">Informe o valor da primeira nota</label>
+            <input type="number" min="1" max="1000" name="primeiro" maxlength="4" id="c1">
         </div>
         <div class="col-6">
-            <label for="c2">Informe o local da prova</label>
-            <input type="text" name="local" maxlength="100" id="c2" placeholder="max: 100 caracteres">
+            <label for="c2">Informe o valor da segunda nota</label>
+            <input type="number" min="1" max="1000" name="segundo" maxlength="4" id="c2">
         </div>
         <div class="col-6">
-            <label for="c3">Informe o número de participantes</label>
-            <input type="number" min="1" max="50" name="part" maxlength="11" id="c3">
+            <label for="c3">Informe o valor da terceira nota</label>
+            <input type="number" min="1" max="1000" name="terceiro" maxlength="4" id="c3">
+        </div>
+        <div class="col-6">
+            <label for="c4">Informe o valor da quarta nota</label>
+            <input type="number" min="1" max="1000" name="quarto" maxlength="4" id="c4">
+        </div>
+        <div class="col-6">
+            <label for="c5">Informe o valor da quinta nota</label>
+            <input type="number" min="1" max="1000" name="quinto" maxlength="4" id="c5">
+        </div>
+        <div class="col-6">
+            <label for="c6">Informe o valor da sexta nota</label>
+            <input type="number" min="1" max="1000" name="sexto" maxlength="4" id="c6">
         </div>
         <?php
             include('../funcoes.php');
-            grupoPont();
+            
         ?>
         
         
-        <input type="submit" name="salvar_grupo" value="Cadastrar">
+        <input type="submit" name="salvar_grupo" onsubmit="valida_form()" value="Cadastrar">
         <input type="reset" name="reset" value="Limpar">
     </form>
 

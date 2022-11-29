@@ -67,9 +67,9 @@
                             <h2>
                                 Membros
                             </h2>
-                            <a href="membro.php">
+                            <button >
                                 <img src="../assets/add.svg" alt="Adicionar">
-                            </a>
+                            </button>
                         </div>
                         <div class="scroll2">
                                 <table class="table table-striped">
