@@ -162,7 +162,7 @@
                         <input type="text" class="form-control" id="inputAddress2" name="equipe" maxlength="250" placeholder="***">
                     </div>                           
                     <div class="col-12">
-                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <input type="submit" class="btn btn-success" name="cadastrar_equipe" value="Salvar">
                     </div>
                 </form>
             </div>

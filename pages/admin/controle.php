@@ -378,7 +378,7 @@
                     //verifica se o cadastro ja existe no bd
                     if ($quant == 0 && $quant2 == 0) {
                         
-                        $sql = "INSERT INTO usuario (nome, email, matricula, turma, senha, tipo) VALUES ('$nome', '$email', '$matricula', '$turma', '$senha', 'user')";
+                        //$sql = "INSERT INTO usuario (nome, email, matricula, turma, senha, tipo) VALUES ('$nome', '$email', '$matricula', '$turma', '$senha', 'user')";
                         $zero = 0;
                         $tipo = "user";
                         
@@ -435,7 +435,7 @@
                         }
 
 
-                        if ($mysqli->query($sql) == true) {
+                        /*if ($mysqli->query($sql) == true) {
                             $sql_code3 = "SELECT * from usuario where email = '$email' AND senha = '$senha'";
                             $sql_query3 = $mysqli->query($sql_code3) or die( "Falha ao carregar as informações" . $mysqli->error);
                             $usuario = $sql_query3->fetch_assoc();
@@ -453,13 +453,13 @@
                             }
                         } else {
                             echo "erro na conculta";
-                        }
+                        }*/
                         
         
                         
                         $mysqli->close();
                         //REDIRECIONA pra login.php
-                        header('location: cadastro.php');
+                        header('location: ../cadastro.php');
                         $_SESSION['usuario_existe'] = false;
                         exit;
         

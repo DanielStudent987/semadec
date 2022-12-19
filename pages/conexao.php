@@ -1,6 +1,6 @@
 <?php
     $usuario = 'root';
-    $pass = '';
+    $pass = 'Dr987100';
     $database = 'semadec';
     $host = "localhost";
     $porta = 3636;
