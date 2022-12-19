@@ -433,30 +433,8 @@
 
                             mysqli_stmt_close($stmt);
                         }
-
-
-                        /*if ($mysqli->query($sql) == true) {
-                            $sql_code3 = "SELECT * from usuario where email = '$email' AND senha = '$senha'";
-                            $sql_query3 = $mysqli->query($sql_code3) or die( "Falha ao carregar as informações" . $mysqli->error);
-                            $usuario = $sql_query3->fetch_assoc();
-                            
-                            $sql2 = "INSERT INTO equipe (nome, numero_part, homologado, Usuario_idUsuario) values('$equipe','$zero','$zero', '$usuario[idUsuario]')";
-        
-                            if ($mysqli->query($sql2) == true) {
-                                $sql_query_conquista = $mysqli->query("SELECT e.idEquipe, p.idProva from provas p, equipe e where e.Usuario_idUsuario=(SELECT idUsuario from usuario where email = '$email' AND senha = '$senha') and p.idProva<>0");
-        
-                                while ($dados = $sql_query_conquista->fetch_assoc()) {
-                                    $mysqli->query("INSERT into conquistas (Provas_idProva, Equipe_idEquipe, classificacao, nota) values ('$dados[idProva]', '$dados[idEquipe]', '', 0)");
-                                    
-                                }
-                                
-                            }
-                        } else {
-                            echo "erro na conculta";
-                        }*/
-                        
-        
-                        
+                
+               
                         $mysqli->close();
                         //REDIRECIONA pra login.php
                         header('location: ../cadastro.php');
