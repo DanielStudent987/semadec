@@ -433,8 +433,7 @@
 
                             mysqli_stmt_close($stmt);
                         }
-                
-               
+                           
                         $mysqli->close();
                         //REDIRECIONA pra login.php
                         header('location: ../cadastro.php');
