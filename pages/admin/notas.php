@@ -18,11 +18,11 @@
                 echo "<option selected value=".$dados[$id].">".$dados['nome']."</option>";}
                 echo "<option value=".$dados[$id].">".$dados['nome']."</option>";
             } 
-            exit;
+            $mysqli->close();
     }
 
     //UPDATE NA TABELA CONQUISTA
-    if (isset($_POST['id_equipe']) || isset($_POST['prova']) || isset($_POST['class'])) {
+    /*if (isset($_POST['id_equipe']) || isset($_POST['prova']) || isset($_POST['class'])) {
         if (strlen($_POST['id_equipe'])==0) {
             echo 'Selecione o nome da equipe.';
         } else if (strlen($_POST['prova'])==0) {
@@ -65,7 +65,7 @@
             
 
         }
-    }
+    }*/
     
 ?>
 
@@ -95,7 +95,7 @@
     <div class="content">
         <div class="form-field">
             <!--MUDAR O ACTION DEPOIS DE MUDAR O NOME DA PAGE-->
-            <form class="row g-3 align-items-center" action="notas.php" enctype="multipart/form-data" method="post">
+            <form class="row g-3 align-items-center" action="processa.php" enctype="multipart/form-data" method="post">
                 
                 <div class="caixa row g-3 align-items-center">
                     <!--NOME DA EQUIPE-->
@@ -164,7 +164,7 @@
                     </div>
                                             
                     <div class="col-12">
-                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <input type="submit" class="btn btn-success" value="Salvar" name="cadastrar_notas">
                     </div>
                 </div>
             </form>

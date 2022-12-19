@@ -43,27 +43,27 @@
     <form action="processa.php" method="post">
         <div class="col-6">
             <label for="c1">Informe o valor da primeira nota</label>
-            <input type="number" min="1" max="1000" name="primeiro" maxlength="4" id="c1">
+            <input type="number" min="1" max="1000" name="primeiro" value='1' maxlength="4" id="c1">
         </div>
         <div class="col-6">
             <label for="c2">Informe o valor da segunda nota</label>
-            <input type="number" min="1" max="1000" name="segundo" maxlength="4" id="c2">
+            <input type="number" min="1" max="1000" name="segundo" value='1' maxlength="4" id="c2">
         </div>
         <div class="col-6">
             <label for="c3">Informe o valor da terceira nota</label>
-            <input type="number" min="1" max="1000" name="terceiro" maxlength="4" id="c3">
+            <input type="number" min="1" max="1000" name="terceiro" value='1' maxlength="4" id="c3">
         </div>
         <div class="col-6">
             <label for="c4">Informe o valor da quarta nota</label>
-            <input type="number" min="1" max="1000" name="quarto" maxlength="4" id="c4">
+            <input type="number" min="1" max="1000" name="quarto" value='1' maxlength="4" id="c4">
         </div>
         <div class="col-6">
             <label for="c5">Informe o valor da quinta nota</label>
-            <input type="number" min="1" max="1000" name="quinto" maxlength="4" id="c5">
+            <input type="number" min="1" max="1000" name="quinto" value='1' maxlength="4" id="c5">
         </div>
         <div class="col-6">
             <label for="c6">Informe o valor da sexta nota</label>
-            <input type="number" min="1" max="1000" name="sexto" maxlength="4" id="c6">
+            <input type="number" min="1" max="1000" name="sexto" value='1' maxlength="4" id="c6">
         </div>
         <?php
             include('../funcoes.php');

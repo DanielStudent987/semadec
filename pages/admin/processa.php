@@ -258,6 +258,84 @@
             }
         
         
+    } else if (isset($_POST["cadastrar_notas"])) {
+        include("../conexao.php");
+        if (isset($_POST['id_equipe']) || isset($_POST['prova']) || isset($_POST['class'])) {
+            if (strlen($_POST['id_equipe'])==0) {
+                echo 'Selecione o nome da equipe.';
+            } else if (strlen($_POST['prova'])==0) {
+                echo 'Selecione o nome da prova.';
+            } else if (strlen($_POST['class'])==0) {
+                echo 'Selecione a classificação da prova.';
+            } else {
+                $id_equipe = $_POST['id_equipe'];
+                $id_prova = $_POST['prova'];
+                $class = $_POST['class'];
+                
+                //ID DA PONTUACAO
+                $sql_query = $mysqli->query("SELECT pontuacao_idpontuacao as pont from provas where idProva = $id_prova");
+                $id_pont = $sql_query->fetch_assoc();
+    
+                //PONTUACAO
+                $sql_code = "SELECT $class from pontuacao where idPontuacao = ($id_pont[pont])";
+                $sql_query = $mysqli->query($sql_code) or die($mysqli->error);
+                $dados = $sql_query->fetch_assoc(); 
+    
+                //VERIFICA SE HA OUTRAS INSERÇÕES COM A MESMA CLASSIFICACAO E EXCLUI AS ANTERIORES
+                $sql_query_verify = $mysqli->query("SELECT c.Equipe_idEquipe, c.Provas_idProva, c.classificacao from conquistas c, equipe e where c.Equipe_idEquipe=e.idEquipe
+                and c.Equipe_idEquipe!=$id_equipe and c.Provas_idProva=$id_prova and c.classificacao='$class' order by Provas_idProva");
+                $verify_quant = $sql_query_verify->num_rows;
+                //echo $verify_quant;
+    
+                #APAGA REGISTROS REPETIDOS
+                $zero=0;
+                $string = " ";
+                if ($verify_quant > 0) {
+                    while ($ds = $sql_query_verify->fetch_assoc()) {
+                        //$sql_code = "UPDATE conquistas set classificacao='', nota=0 where Equipe_idEquipe='$ds[Equipe_idEquipe]' and Provas_idProva='$ds[Provas_idProva]'";
+                        //$mysqli->query($sql_code) or die($mysqli->error); 
+
+                        if ($stmt = $mysqli->prepare("UPDATE conquistas set classificacao=?, nota=? where Equipe_idEquipe=? and Provas_idProva=?")) {
+                            
+                            mysqli_stmt_bind_param($stmt,'siii', $string, $zero, $ds['Equipe_idEquipe'], $ds['Provas_idProva']);
+                            //efetiva e executa a SQL no banco, i.e., insere
+                            $status = mysqli_stmt_execute($stmt);
+                            ///verifica se deu algo de errado:
+                            if ($status === false) {
+                                trigger_error($stmt->error, E_USER_ERROR);
+                            }
+                            mysqli_stmt_close($stmt);
+                            
+                        }  
+                        
+                        
+                    }
+                }
+                //UPDATE
+                $sql_code = "UPDATE conquistas set classificacao='$class', nota=$dados[$class] where Equipe_idEquipe=$id_equipe and Provas_idProva=$id_prova";
+                $mysqli->query($sql_code) or die($mysqli->error);
+
+                if ($stmt = $mysqli->prepare("UPDATE conquistas set classificacao=?, nota=? where Equipe_idEquipe=? and Provas_idProva=?")) {
+                            
+                    mysqli_stmt_bind_param($stmt,'siii', $class, $dados[$class], $id_equipe, $id_prova);
+                    //efetiva e executa a SQL no banco, i.e., insere
+                    $status = mysqli_stmt_execute($stmt);
+                    ///verifica se deu algo de errado:
+                    if ($status === false) {
+                        trigger_error($stmt->error, E_USER_ERROR);
+                    }
+                    mysqli_stmt_close($stmt);
+                    
+                }
+
+                #echo $id_equipe;
+                #echo $id_prova;
+                $mysqli->close();
+                header("location: notas.php");
+                
+    
+            }
+        }
     }
 
 
