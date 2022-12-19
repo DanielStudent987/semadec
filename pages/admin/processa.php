@@ -139,7 +139,126 @@
         $mysqli->close();
         header("location:controle.php?p1=y&".$pr."&cadastrarequipe=1");
 
-    } 
+        //CADASTRAR NOTICIA
+    } else if (isset($_POST["salvar_noticia"])) {
+        include("../conexao.php");
+        if (isset($_POST['tipo']) || isset($_POST['nome']) || isset($_POST['link']) || isset($_POST['file'])) {
+            //echo empty($_FILES['arquivo']['name']);
+            //echo "link ".empty($_POST['link']);
+            if (strlen($_POST['tipo']) == 0) {
+                echo "Selecione um tipo.";
+            } else if (strlen($_POST['nome']) == 0) {
+                echo "Preencha o nome do arquivo ou link.";
+            } else if (empty($_POST['link']) && !($_POST['tipo'] == "file")) {
+                echo "Informe o link.";
+            } else if (empty($_FILES['arquivo']['name']) && !($_POST['tipo'] == "link")) {
+                echo "Insira um arquivo.";
+            } else {
+                
+                $tipo = $_POST['tipo'];
+                $nome = $_POST['nome'];
+        
+                if (!empty($_POST['link'])) {
+                    $link = $_POST['link'];
+                    
+                    //$sql_query = $mysqli->query("INSERT into arquivo (nome, caminho, tipo) values('$nome', '$link', '$tipo')") or die($mysqli->error);
+                    
+                    if ($stmt = $mysqli->prepare("INSERT INTO arquivo (nome, caminho, tipo) VALUES  (?, ?, ?)")) {
+                        //vincular valores as interrogacoes (?)
+                        mysqli_stmt_bind_param($stmt,'sss',$nome, $link, $tipo);
+                        //efetiva e executa a SQL no banco, i.e., insere
+                        $status = mysqli_stmt_execute($stmt);
+                        if ($status === false) {
+                            trigger_error($stmt->error, E_USER_ERROR);
+                        }
+                        mysqli_stmt_close($stmt);
+                    }
+                    $mysqli->close();
+                    header('location: gerenciarnoticias.php');
+
+                } else {
+                    $arquivo = $_FILES['arquivo'];
+                    $nome_arquivo = $arquivo['name'];
+                    $novo_nome_arquivo = uniqid();
+                    $ext = strtolower(pathinfo($nome_arquivo, PATHINFO_EXTENSION));
+        
+                    //ESSE CAMINHO SEGUE UMA LOGICA DIFERENTE DA FORMA QUE OCORRE NA PAGE MEMBRO
+                    //MAS ISSO NAO INTERFERE, POR HORA. AO MENOS NAO EM MINHA MAQUINA
+                    $caminho_arquivo = '../arquivos/'.$novo_nome_arquivo . '.' . $ext;
+                    
+                    if($arquivo['size'] > 2097152) {
+                        die('Arquivo muito grande, max: 2MB');
+                    }
+        
+                    if (move_uploaded_file($arquivo['tmp_name'], '../'.$caminho_arquivo)) {
+                        // Insere os dados no banco
+                        //$sql = "INSERT INTO arquivo (nome, caminho, tipo) values ('$nome', '$caminho_arquivo', '$tipo')";
+                        //$mysqli->query($sql) or die($mysqli->error);
+                           
+                        if ($stmt = $mysqli->prepare("INSERT INTO arquivo (nome, caminho, tipo) VALUES  (?, ?, ?)")) {
+                            //vincular valores as interrogacoes (?)
+                            mysqli_stmt_bind_param($stmt,'sss',$nome, $caminho_arquivo, $tipo);
+                            //efetiva e executa a SQL no banco, i.e., insere
+                            $status = mysqli_stmt_execute($stmt);
+                            if ($status === false) {
+                                trigger_error($stmt->error, E_USER_ERROR);
+                            }
+                            mysqli_stmt_close($stmt);
+                        }
+
+
+                        $mysqli->close();
+                        header('location: gerenciarnoticias.php');
+                        
+                    } else{
+                        echo 'Erro ao salvar arquivo';
+                    }
+        
+        
+                }
+            }
+        }
+    } else if (isset($_GET["deletar_noticia"])) {
+            include("../conexao.php");
+            $id_deletar = intval($_GET['deletar_noticia']);
+            $sql_query = $mysqli->query("SELECT * from arquivo where idArquivo = '$id_deletar'") or die($mysqli->error);
+            $dados = $sql_query->fetch_assoc();
+        
+            if ($dados['tipo']=='link') {
+
+                if ($stmt = $mysqli->prepare("DELETE from arquivo where idArquivo=?")) {
+                    mysqli_stmt_bind_param($stmt,'i',$id_deletar);
+                    //efetiva e executa a SQL no banco, i.e., insere
+                    $status = mysqli_stmt_execute($stmt);
+                    ///verifica se deu algo de errado:
+                    if ($status === false) {
+                        trigger_error($stmt->error, E_USER_ERROR);
+                    }
+                    mysqli_stmt_close($stmt);
+                }
+                $mysqli->close();
+                header('location: gerenciarnoticias.php');
+                
+            } else {
+                if (unlink('../'.$dados['caminho'])) {
+        
+                    if ($stmt = $mysqli->prepare("DELETE from arquivo where idArquivo=?")) {
+                        mysqli_stmt_bind_param($stmt,'i',$id_deletar);
+                        //efetiva e executa a SQL no banco, i.e., insere
+                        $status = mysqli_stmt_execute($stmt);
+                        ///verifica se deu algo de errado:
+                        if ($status === false) {
+                            trigger_error($stmt->error, E_USER_ERROR);
+                        }
+                        mysqli_stmt_close($stmt);
+                    }
+                    $mysqli->close();
+                    header('location: gerenciarnoticias.php');
+                }
+            }
+        
+        
+    }
 
 
     

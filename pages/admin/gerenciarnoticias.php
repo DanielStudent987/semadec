@@ -2,28 +2,7 @@
 include('protecao.php');
 include('../conexao.php');
 
-if (isset($_GET['deletar'])) {
-        
-    $id_deletar = intval($_GET['deletar']);
-    $sql_query = $mysqli->query("SELECT * from arquivo where idArquivo = '$id_deletar'") or die($mysqli->error);
-    $dados = $sql_query->fetch_assoc();
-
-    if ($dados['tipo']=='link') {
-        if ($mysqli->query("DELETE from arquivo where idArquivo = '$id_deletar'") or die($mysqli->error)) {
-            header("location: gerenciarnoticias.php");
-        }
-    } else {
-        if (unlink('../'.$dados['caminho'])) {
-
-            if ($mysqli->query("DELETE from arquivo where idArquivo = '$id_deletar'") or die($mysqli->error)) {
-                header("location: gerenciarnoticias.php");
-            }
-        }
-    }
-
-}
-
-if (isset($_POST['tipo']) || isset($_POST['nome']) || isset($_POST['link']) || isset($_POST['file'])) {
+/*if (isset($_POST['tipo']) || isset($_POST['nome']) || isset($_POST['link']) || isset($_POST['file'])) {
     //echo empty($_FILES['arquivo']['name']);
     //echo "link ".empty($_POST['link']);
     if (strlen($_POST['tipo']) == 0) {
@@ -73,7 +52,7 @@ if (isset($_POST['tipo']) || isset($_POST['nome']) || isset($_POST['link']) || i
 
         }
     }
-}
+}*/
 
 ?>
 
@@ -120,7 +99,7 @@ if (isset($_POST['tipo']) || isset($_POST['nome']) || isset($_POST['link']) || i
         <div class="pose"><div class="in"><h3>Adicionar Notícias</h3></div></div>
         <div class="form-field">
             <!--MUDAR O ACTION DEPOIS DE MUDAR O NOME DA PAGE-->
-            <form class="row g-3 align-items-center" action="gerenciarnoticias.php" enctype="multipart/form-data" method="post">
+            <form class="row g-3 align-items-center" action="processa.php" enctype="multipart/form-data" method="post">
                 
                 <div class="caixa row g-3 align-items-center">
                     <div class="form-check">
@@ -158,7 +137,7 @@ if (isset($_POST['tipo']) || isset($_POST['nome']) || isset($_POST['link']) || i
                         </div> 
                                                 
                         <div class="col-12">
-                            <button type="submit" class="btn btn-success">Salvar</button>
+                            <input type="submit" name="salvar_noticia" class="btn btn-success" value="Salvar">
                         </div>
                     </div>
                 </form>
@@ -195,7 +174,7 @@ if (isset($_POST['tipo']) || isset($_POST['nome']) || isset($_POST['link']) || i
                                 <td><?php echo $dados['caminho']; ?></td>
                                 <td><?php echo $dados['tipo']; ?></td>
                                 <td><a target="_blank" href="<?php echo $caminhoArq; ?>"><?php echo $dados['nome'] ?></a></td>
-                                <td><a href="gerenciarnoticias.php?deletar=<?php echo $dados['idArquivo']; ?>">Deletar<img src="../../assets/Delete.svg" alt="deletar"></a></td>
+                                <td><a href="processa.php?deletar_noticia=<?php echo $dados['idArquivo']; ?>">Deletar<img src="../../assets/Delete.svg" alt="deletar"></a></td>
                             </tr>
                             <?php 
                                 }
