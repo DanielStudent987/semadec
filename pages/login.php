@@ -1,6 +1,5 @@
 <?php
     
-    include('conexao.php');
     
     if (isset($_POST['email']) || isset($_POST['senha'])){
 
@@ -10,6 +9,7 @@
         } else if (strlen($_POST['senha']) == 0) {
             echo "preencha sua senha";
         } else {
+            include('conexao.php');
 
             $email = $mysqli->real_escape_string($_POST['email']);
             $senha = md5($mysqli->real_escape_string($_POST['senha']));
@@ -57,12 +57,9 @@
                 }
             } else {
                 echo 'falha ao logar, email ou senha invalidos';
-                echo $quant;
-                if (!isset($_SESSION)) {
-                    session_start();
-                }
-                $_SESSION['status_login'] = false;
-                header('loction: login.php');
+                
+                
+                header('location: login.php');
                 exit;
             }
 
