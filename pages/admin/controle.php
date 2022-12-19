@@ -339,6 +339,142 @@
 
                 }
 
+            } else if (isset($_GET["cadastrarequipe"])) {
+                if ($_GET["cadastrarequipe"]==1) {
+
+                    //INICIA A SESSION SE NAO TIVER NENHUMA
+                    if(!isset($_SESSION)) {
+                        session_start();
+                    }
+
+                    $nome = $_GET["nome_lider_equipe"];
+                    $turma = $_GET["turma_equipe"];
+                    $matricula = $_GET["matricula_equipe"];
+                    $equipe = $_GET["nome_equipe"];
+                    $email = $_SESSION["email_equipe"];
+                    $senha = $_SESSION["senha_equipe"];
+                    
+
+                    include("../conexao.php");
+
+                    $sql_code = "SELECT * from usuario where email = '$email' or matricula = '$matricula'";
+                    $sql_code2 = "SELECT * from equipe where nome = '$equipe'";
+        
+                    $sql_query = $mysqli->query($sql_code) or die( "Falha ao carregar as informações" . $mysqli->error);
+                    $sql_query2 = $mysqli->query($sql_code2) or die( "Falha ao carregar as informações" . $mysqli->error);
+                    
+        
+                    $quant = $sql_query->num_rows;
+                    $quant2 = $sql_query2->num_rows;
+                    
+        
+                    $sql_count_query = $mysqli->query("SELECT count(*) as num from equipe") or die($mysqli->error);
+                    $num = $sql_count_query->fetch_assoc();
+                    if ($num['num'] >= 9) {
+                        die("Número máximo de equipes formado");
+                        
+                    }
+                    
+                    //verifica se o cadastro ja existe no bd
+                    if ($quant == 0 && $quant2 == 0) {
+                        
+                        $sql = "INSERT INTO usuario (nome, email, matricula, turma, senha, tipo) VALUES ('$nome', '$email', '$matricula', '$turma', '$senha', 'user')";
+                        $zero = 0;
+                        $tipo = "user";
+                        
+                        /*$sql_code3 = "SELECT * from usuario where email = '$email' AND senha = '$senha'";
+                        $sql_query3 = $mysqli->query($sql_code3) or die( "Falha ao carregar as informações" . $mysqli->error);
+                        $usuario = $sql_query3->fetch_assoc();*/
+        
+                        if ($stmt = $mysqli->prepare("INSERT INTO usuario (nome, email, matricula, turma, senha, tipo) VALUES  (?, ?, ?, ?, ?, ?)")) {
+                            //vincular valores as interrogacoes (?)
+                            mysqli_stmt_bind_param($stmt,'ssssss',$nome, $email, $matricula, $turma, $senha, $tipo);
+                            //efetiva e executa a SQL no banco, i.e., insere
+                            $status = mysqli_stmt_execute($stmt);
+                            if ($status === false) {
+                                trigger_error($stmt->error, E_USER_ERROR);
+                            }
+                            
+                            $sql_code3 = "SELECT * from usuario where email = '$email' AND senha = '$senha'";
+                            $sql_query3 = $mysqli->query($sql_code3) or die( "Falha ao carregar as informações" . $mysqli->error);
+                            $usuario = $sql_query3->fetch_assoc();
+                            $id_user = $usuario["idUsuario"];
+
+                            if ($stmt = $mysqli->prepare("INSERT INTO equipe (nome, numero_part, homologado, Usuario_idUsuario) VALUES  (?, ?, ?, ?)")) {
+                                //vincular valores as interrogacoes (?)
+                                mysqli_stmt_bind_param($stmt,'siii',$equipe, $zero, $zero, $id_user);
+                                //efetiva e executa a SQL no banco, i.e., insere
+                                $status = mysqli_stmt_execute($stmt);
+                                if ($status === false) {
+                                    trigger_error($stmt->error, E_USER_ERROR);
+                                }
+
+                                $sql_query_conquista = $mysqli->query("SELECT e.idEquipe, p.idProva from provas p, equipe e where e.Usuario_idUsuario=(SELECT idUsuario from usuario where email = '$email' AND senha = '$senha') and p.idProva<>0");
+        
+                                $nota = 0;
+                                $clas = "";
+                                while ($dados = $sql_query_conquista->fetch_assoc()) {
+                                    //$mysqli->query("INSERT into conquistas (Provas_idProva, Equipe_idEquipe, classificacao, nota) values ('$dados[idProva]', '$dados[idEquipe]', '', 0)");
+                                    $idP = $dados["idProva"];
+                                    $idE = $dados["idEquipe"];
+                                    
+
+                                    if ($stmt = $mysqli->prepare("INSERT INTO conquistas (Provas_idProva, Equipe_idEquipe, classificacao, nota) VALUES  (?, ?, ?, ?)")) {
+                                        //vincular valores as interrogacoes (?)
+                                        mysqli_stmt_bind_param($stmt,'iisi',$idP, $idE, $clas, $nota);
+                                        //efetiva e executa a SQL no banco, i.e., insere
+                                        $status = mysqli_stmt_execute($stmt);
+                                        if ($status === false) {
+                                            trigger_error($stmt->error, E_USER_ERROR);
+                                        }
+                                    }
+                                }
+                            }
+
+                            mysqli_stmt_close($stmt);
+                        }
+
+
+                        if ($mysqli->query($sql) == true) {
+                            $sql_code3 = "SELECT * from usuario where email = '$email' AND senha = '$senha'";
+                            $sql_query3 = $mysqli->query($sql_code3) or die( "Falha ao carregar as informações" . $mysqli->error);
+                            $usuario = $sql_query3->fetch_assoc();
+                            
+                            $sql2 = "INSERT INTO equipe (nome, numero_part, homologado, Usuario_idUsuario) values('$equipe','$zero','$zero', '$usuario[idUsuario]')";
+        
+                            if ($mysqli->query($sql2) == true) {
+                                $sql_query_conquista = $mysqli->query("SELECT e.idEquipe, p.idProva from provas p, equipe e where e.Usuario_idUsuario=(SELECT idUsuario from usuario where email = '$email' AND senha = '$senha') and p.idProva<>0");
+        
+                                while ($dados = $sql_query_conquista->fetch_assoc()) {
+                                    $mysqli->query("INSERT into conquistas (Provas_idProva, Equipe_idEquipe, classificacao, nota) values ('$dados[idProva]', '$dados[idEquipe]', '', 0)");
+                                    
+                                }
+                                
+                            }
+                        } else {
+                            echo "erro na conculta";
+                        }
+                        
+        
+                        
+                        $mysqli->close();
+                        //REDIRECIONA pra login.php
+                        header('location: cadastro.php');
+                        $_SESSION['usuario_existe'] = false;
+                        exit;
+        
+                    } else {
+                        
+                        $mysqli->close();
+                        $_SESSION['usuario_existe'] = true;
+                        //header('location: cadastro.php');
+                        die("Você não pode acessar essa página. <p><a href=\"login.php\">Fazer login</a></p>");
+                        
+                    }
+
+                } else {
+                    echo "Acesso negado";
+                }
             }
 
 

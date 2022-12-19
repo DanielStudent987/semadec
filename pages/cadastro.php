@@ -136,7 +136,7 @@
         <div class="main">
             <div>
                 <h1>Cadastro de Equipe</h1>
-                <form class="row g-3" action="processa.php" method="post">
+                <form class="row g-3" action="admin/processa.php" method="post">
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">Email</label>
                         <input type="email" class="form-control" id="inputEmail4" maxlength="250" name="email" placeholder="***">
@@ -162,7 +162,7 @@
                         <input type="text" class="form-control" id="inputAddress2" name="equipe" maxlength="250" placeholder="***">
                     </div>                           
                     <div class="col-12">
-                        <input type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success">Salvar</button>
                     </div>
                 </form>
             </div>

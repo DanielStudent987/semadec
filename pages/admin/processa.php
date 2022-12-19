@@ -56,6 +56,7 @@
 
         header("location: controle.php?p1=y".$pr."&deletar=2");
     
+    //DELETAR GRUPO DE PONTUAÇÃO
     } else if (isset($_POST["deletar_grupo"])) {
         $id = isset($_POST["deletar_grupo"]) ? $_POST["deletar_grupo"] : "";
         if ($id!="") {
@@ -63,6 +64,8 @@
         }
         
         header("location: controle.php?p1=y".$pr."&grupo=1");
+        
+    //SALVAR GRUPO DE PONTUAÇÃO
     } else if (isset($_POST["salvar_grupo"])) {
         $primeiro = isset($_POST["primeiro"]) ? $_POST["primeiro"] : "";
         if ($primeiro!="") {
@@ -95,7 +98,49 @@
         } 
 
         header("location:controle.php?p1=y&".$pr."&cadastrargrupo=1");
-    }
+
+    //Cadastrar Equipes
+    } else if  (isset($_POST["cadastrar_equipe"])) {
+        include("../conexao.php");
+
+        $nome = isset($_POST["nome"]) ? $mysqli->real_escape_string($_POST["nome"]) : "";
+        if ($nome!="") {
+            $pr = $pr."nome_lider_equipe=".$nome;
+        } 
+
+        $turma = isset($_POST["turma"]) ? strtoupper($mysqli->real_escape_string($_POST["turma"])) : "";
+        if ($turma!="") {
+            $pr = $pr."&turma_equipe=".$turma;
+        }
+
+        $mat = isset($_POST["matricula"]) ? $mysqli->real_escape_string($_POST["matricula"]) : "";
+        if ($mat!="") {
+            $pr = $pr."&matricula_equipe=".$mat;
+        }
+
+        $equipe = isset($_POST["equipe"]) ? $mysqli->real_escape_string($_POST["equipe"]) : "";
+        if ($equipe!="") {
+            $pr = $pr."&nome_equipe=".$equipe;
+        }
+
+        $email = isset($_POST["email"]) ? $mysqli->real_escape_string($_POST["email"]) : "";
+        if ($email!="") {
+            //$pr = $pr."&email_equipe=".$email;
+            $_SESSION["email_equipe"] = $email;
+        }
+
+        $senha = isset($_POST["senha"]) ? md5($mysqli->real_escape_string($_POST["senha"])) : "";
+        if ($senha!="") {
+            //$pr = $pr."&email_equipe=".$email;
+            $_SESSION["senha_equipe"] = $senha;
+        }
+
+
+        $mysqli->close();
+        header("location:controle.php?p1=y&".$pr."&cadastrarequipe=1");
+
+    } 
+
 
     
 
